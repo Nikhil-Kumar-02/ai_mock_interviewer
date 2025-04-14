@@ -53,14 +53,25 @@ function Interview({ params }) {
         {webCamEnabled ? (
           <Webcam
             mirrored={true}
-            style={{ height: 300, width: 300 }}
+            style={{
+              height: 350,
+              width: 700,
+              borderRadius: 16,
+              border: '1px solid #e5e7eb',
+              objectFit: 'cover',
+              margin : '1rem'
+            }}
             onUserMedia={() => setWebCamEnabled(true)}
             onUserMediaError={() => setWebCamEnabled(false)}
           />
         ) : (
           <>
             <WebcamIcon className="h-72 w-full my-7 p-20 bg-secondary rounded-lg border" />
-            <Button variant="ghost" onClick={() => setWebCamEnabled(true)}>
+            <Button
+              variant="ghost"
+              onClick={() => setWebCamEnabled(true)}
+              className="px-4 py-2 text-sm bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold rounded-md shadow-md hover:shadow-lg hover:scale-105 hover:brightness-110 transition-all duration-300 ease-in-out"
+            >
               Enable Web Cam and Microphone
             </Button>
           </>

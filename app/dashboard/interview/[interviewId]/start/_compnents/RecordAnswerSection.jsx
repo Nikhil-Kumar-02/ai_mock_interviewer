@@ -102,17 +102,17 @@ function RecordAnswerSection({ activeQuestionIndex, mockInterViewQuestion,interv
 
   return (
     <div className="flex items-center justify-center flex-col">
-      <div className="flex flex-col mt-20 justify-center items-center bg-black rounded-lg p-5">
+      <div className="flex flex-col mt-20 justify-center items-center bg-black rounded-lg p-1">
         <Image
           src={"/webcam.png"}
           width={200}
-          height={200}
+          height={300}
           className="absolute"
         />
         <Webcam
           mirrored={true}
           style={{
-            height: "50vh",
+            height: "60vh",
             width: "100%",
             zIndex: 10,
           }}

@@ -12,6 +12,7 @@ function StartInterview({ params }) {
   const [interviewData, setInterviewData] = useState();
   const [mockInterviewQuestion, setMockInterviewQuestion] = useState();
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
+
   useEffect(() => {
     GetInterviewDetail();
   }, []);
@@ -28,10 +29,12 @@ function StartInterview({ params }) {
 
     const jsonMockResp = JSON.parse(result[0]?.jsonMockResp);
 
+    
     setMockInterviewQuestion(jsonMockResp);
 
     setInterviewData(result[0]);
   };
+  
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
