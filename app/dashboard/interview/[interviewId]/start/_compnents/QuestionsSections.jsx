@@ -1,17 +1,28 @@
-import { Lightbulb, Volume2 , } from 'lucide-react'
-import React, { useEffect } from 'react'
+import { Lightbulb, Volume2 , VolumeX } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
 
 function QuestionsSections({activeQuestionIndex,mockInterViewQuestion}) {
     
-  const textToSpeech=(text)=>{
-    if('speechSynthesis' in window){
-      window.speechSynthesis.cancel(); // stop any ongoing speech
-      const speech= new SpeechSynthesisUtterance(text);
-      window.speechSynthesis.speak(speech)
-    }else{
-      alert('Sorry, Your browser does not sport text to speech (recommended browser Chrome)')
+  const [isSpeaking, setIsSpeaking] = useState(true);
+
+  const textToSpeech = (text) => {
+  if ('speechSynthesis' in window) {
+    const synth = window.speechSynthesis;
+    setIsSpeaking(!setIsSpeaking);
+
+    if (synth.paused) {
+      synth.resume(); // Resume if paused
+    } else if (synth.speaking) {
+      synth.pause(); // Pause if currently speaking
+    } else {
+      const speech = new SpeechSynthesisUtterance(text);
+      synth.speak(speech); // Speak if nothing is happening
     }
+  } else {
+    alert('Sorry, your browser does not support text-to-speech (Chrome recommended)');
   }
+};
+
 
   // Auto speak when question index changes
   useEffect(() => {
@@ -31,7 +42,13 @@ function QuestionsSections({activeQuestionIndex,mockInterViewQuestion}) {
         <h2 className='my-5 text-sm md:text-lg'>
           <strong>Q.</strong>  {mockInterViewQuestion[activeQuestionIndex]?.question}
         </h2>
-        <Volume2 className='cursor-pointer' onClick={()=>textToSpeech(mockInterViewQuestion[activeQuestionIndex]?.question)} />
+        {
+          isSpeaking ? (
+            <VolumeX className="cursor-pointer text-gray-700" onClick={() => textToSpeech(mockInterViewQuestion[activeQuestionIndex]?.question)}/>
+          ) : (
+            <Volume2 className="cursor-pointer text-gray-700" onClick={() => textToSpeech(mockInterViewQuestion[activeQuestionIndex]?.question)} />
+          )
+        }
         <div className='border rounded-lg p-5 bg-blue-100 mt-20'>
             <h2 className='flex gap-2 items-center text-blue-700'>
                 <Lightbulb/>
