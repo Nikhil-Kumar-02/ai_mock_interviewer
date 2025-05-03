@@ -56,27 +56,29 @@ function RecordAnswerSection({ activeQuestionIndex, mockInterViewQuestion,interv
 
   useEffect(()=>{
     if(!isRecording&&userAnswer.length>10){
+      console.log("Triggering DB update:", userAnswer);
       UpdateUserAnswerInDb();
     }
-    // if (userAnswer?.length < 10) {
-    //   setLoading(false)
-    //   toast("Error while saving your answer, Please record again");
-    //   return;
-    // }
+    if (userAnswer?.length < 10) {
+      setLoading(false)
+      toast("Error while saving your answer, Please record again");
+      return;
+    }
 
   },[userAnswer])
 
   const UpdateUserAnswerInDb=async()=>{
-    console.log(userAnswer)
+    console.log("user answer which he spoke :--  ",userAnswer)
     setLoading(true);
-    const feedbackPromt = `Question: ${mockInterViewQuestion[activeQuestionIndex]?.question}, User Answer: ${userAnswer}. Based on the question and the user's answer, please provide a rating 1 to 10 for the answer and feedback in the form of areas for improvement, if any. The feedback should in JSON format only nothing else field should be rating and feeback only, in just 3 to 5 lines.`;
+    const feedbackPromt = `Question: ${mockInterViewQuestion[activeQuestionIndex]?.question}, User Answer: ${userAnswer}. Based on the question and the user's answer, please provide a rating 1 to 10 for the answer and feedback in the form of areas for improvement, if any. The feedback should be in JSON format only nothing else, field should be rating and feeback only, in just 3 to 5 lines.`;
     const result = await chatSession.sendMessage(feedbackPromt);
     const mockJsonResp = result.response
       .text()
       .replace("```json", "")
       .replace("```", "");
 
-    const JsonFeedbackResp=JSON.parse(mockJsonResp)
+    const JsonFeedbackResp=JSON.parse(mockJsonResp);
+
     const resp=await db.insert(UserAnswer).values({
       mockIdRef: interviewData?.mockId,
       question:mockInterViewQuestion[activeQuestionIndex]?.question,
@@ -91,10 +93,12 @@ function RecordAnswerSection({ activeQuestionIndex, mockInterViewQuestion,interv
     })
     
     if(resp){
-
-      toast('User Answer recorder successfully!')
+      toast('User Answer recorded successfully!')
       setUserAnswer('')
       setResults([])
+    }
+    else{
+      toast('User Answer not recorded!')
     }
     setResults([])
     setLoading(false)
