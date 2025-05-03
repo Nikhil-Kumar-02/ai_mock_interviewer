@@ -1,37 +1,26 @@
 import { Lightbulb, Volume2 } from 'lucide-react'
+import { useState } from 'react';
 
 function QuestionsSections({activeQuestionIndex,mockInterViewQuestion}) {
 
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
   const textToSpeech = (text) => {
-    const synth = window.speechSynthesis;
-  
-    if (!('speechSynthesis' in window)) {
-      alert('Sorry, your browser does not support text-to-speech (try Chrome).');
-      return;
+    if ('speechSynthesis' in window) {
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        setIsSpeaking(false);
+      } else {
+        const speech = new SpeechSynthesisUtterance(text);
+        speech.onstart = () => setIsSpeaking(true);
+        speech.onend = () => setIsSpeaking(false);
+        window.speechSynthesis.speak(speech);
+      }
+    } else {
+      alert('Sorry, your browser does not support text-to-speech (recommended: Chrome)');
     }
-  
-    // If already speaking, stop it
-    if (synth.speaking || synth.pending) {
-      console.log("Stopping speech");
-      synth.cancel(); // stops any ongoing speech
-      return;
-    }
-  
-    // Prepare to speak
-    const utterance = new SpeechSynthesisUtterance(text);
-  
-    // Optional: select a specific voice
-    const voices = synth.getVoices();
-    if (voices.length > 0) {
-      utterance.voice = voices[0]; // Or any specific voice
-    }
-  
-    console.log("Speaking:", text);
-    synth.speak(utterance);
   };
   
-
-
 
   return mockInterViewQuestion&&(
     <div className='p-5 border rounded-lg my-10'>
@@ -43,14 +32,11 @@ function QuestionsSections({activeQuestionIndex,mockInterViewQuestion}) {
         <h2 className='my-5 text-sm md:text-lg'>
           <strong>Q.</strong>  {mockInterViewQuestion[activeQuestionIndex]?.question}
         </h2>
-        {/* {
-          isSpeaking ? (
-            <VolumeX className="cursor-pointer text-gray-700" onClick={()  => textToSpeech(mockInterViewQuestion[activeQuestionIndex]?.question)}/>
-          ) : (
-            <Volume2 className="cursor-pointer text-gray-700" onClick={() => textToSpeech(mockInterViewQuestion[activeQuestionIndex]?.question)} />
-          )
-        } */}
-        <Volume2 className='cursor-pointer' onClick={()=>textToSpeech(mockInterViewQuestion[activeQuestionIndex]?.question)} />
+        <Volume2
+          className={`cursor-pointer ${isSpeaking ? "text-green-500 animate-pulse" : ""}`}
+          onClick={() => textToSpeech(mockInterViewQuestion[activeQuestionIndex]?.question)}
+        />
+
         <div className='border rounded-lg p-5 bg-blue-100 mt-20'>
             <h2 className='flex gap-2 items-center text-blue-700'>
                 <Lightbulb/>
