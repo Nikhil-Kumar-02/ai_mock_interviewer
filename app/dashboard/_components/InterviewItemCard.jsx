@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-
+import { ChevronRight, BarChart2, Award, Clock, Activity, BookOpen, Code, Briefcase } from 'lucide-react';
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -48,6 +48,7 @@ function InterviewItemCard({ interviewInfo }) {
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
     const date = new Date(dateString);
+    console.log("date getting " , dateString , date)
     return date.toLocaleDateString('en-US', { 
       year: 'numeric', 
       month: 'short', 
@@ -55,6 +56,15 @@ function InterviewItemCard({ interviewInfo }) {
       hour: '2-digit',
       minute: '2-digit'
     });
+  };
+
+  // Icon mapping based on job position
+  const getJobPositionIcon = (position) => {
+    const positionLower = position?.toLowerCase();
+    
+    if (positionLower?.includes('front')) return <Code className="text-blue-600" />;
+    if (positionLower?.includes('back')) return <BookOpen className="text-green-600" />;
+    return <Briefcase className="text-purple-600" />;
   };
 
   return (
@@ -70,11 +80,11 @@ function InterviewItemCard({ interviewInfo }) {
         <div className="flex flex-col md:flex-row md:items-center justify-between">
           <div className="space-y-3 flex-1">
             <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
-              </div>
+              <div className="bg-gray-100 p-2 rounded-full">
+                      {getJobPositionIcon(interviewInfo.jobPosition)}
+                    </div>
+
+
               <h3 className="text-lg font-semibold text-gray-900 truncate">
                 {interviewInfo?.jobPosition || 'Position Not Specified'}
               </h3>

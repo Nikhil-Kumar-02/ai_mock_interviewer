@@ -130,15 +130,6 @@ function Dashboard() {
           </h2>
           <h2 className="text-gray-500 mt-1">Practice and improve with AI-powered mock interviews</h2>
         </div>
-        {user && (
-          <div className="flex items-center gap-3">
-            <div className="text-right hidden md:block">
-              <p className="font-medium">{user.fullName || user.username}</p>
-              <p className="text-sm text-gray-500">{user.primaryEmailAddress?.emailAddress}</p>
-            </div>
-            <UserButton afterSignOutUrl="/" />
-          </div>
-        )}
       </div>
 
       {/* Stats Cards */}
@@ -174,45 +165,7 @@ function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <AddNewInterview />
         </div>
-      </div>
-
-
-
-
-      Recent Interview Activity
-      {interviews.length > 0 && (
-        <div className="mb-8 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-          <h3 className="text-xl font-bold mb-4">Recent Activity</h3>
-          <div className="space-y-4">
-            {interviews.slice(0, 3).map((interview) => {
-              const questions = interview.jsonMockResp ? JSON.parse(interview.jsonMockResp) : [];
-              return (
-                <div key={interview.id} className="p-4 bg-gray-50 rounded-lg border border-gray-100 hover:border-blue-200 transition-all duration-300">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-gray-100 p-2 rounded-full">
-                      {getJobPositionIcon(interview.jobPosition)}
-                    </div>
-                    <div>
-                      <h4 className="font-medium">{interview.jobPosition} Interview ({interview.jobDesc})</h4>
-                      <p className="text-sm text-gray-500">
-                        {interview.createdAt} • {questions.length} questions
-                      </p>
-                    </div>
-                  </div>
-                  <div className="ml-10 mt-2 text-sm text-gray-700">
-                    {questions.length > 0 && (
-                      <p className="line-clamp-1">
-                        <span className="font-medium text-gray-900">Question:</span> {questions[0].question}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
+      </div>  
 
       {/* Previous Interviews Section */}
       <div className="mt-10">
