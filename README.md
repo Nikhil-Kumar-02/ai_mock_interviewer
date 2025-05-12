@@ -27,12 +27,17 @@ Take a look at some of the key areas of our platform:
 <img width="953" alt="Landing Page" src="https://github.com/user-attachments/assets/34d207b8-26a6-4956-ac74-c0108dacee92">
 
 ### Dashboard
-<img width="958" alt="Dashboard" src="https://github.com/user-attachments/assets/a1cc7993-c9e8-461f-9b36-a527143331fd">
+<img width="958" alt="Dashboard" src="https://github.com/Nikhil-Kumar-02/ai_mock_interviewer/blob/master/Picture2.png">
+
+### Start Interview
+<img width="943" alt="Interview Setup" src="https://github.com/Nikhil-Kumar-02/ai_mock_interviewer/blob/master/Picture3.png">
 
 ### Interview Setup
 <img width="943" alt="Interview Setup" src="https://github.com/user-attachments/assets/d8df9845-b5b0-4446-a5fd-4bb267a2b3b2">
 
 ### Feedback Section
+<img width="944" alt="Feedback Section" src="https://github.com/Nikhil-Kumar-02/ai_mock_interviewer/blob/master/Picture4.png">
+<img width="944" alt="Feedback Section" src="https://github.com/Nikhil-Kumar-02/ai_mock_interviewer/blob/master/Picture5.png">
 <img width="944" alt="Feedback Section" src="https://github.com/user-attachments/assets/1bbb12a4-861b-46f1-bcba-b1ac3cdce4ef">
 
 ---
