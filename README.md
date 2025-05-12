@@ -19,6 +19,10 @@ Welcome to **AI Interview Mocker**, an innovative platform designed to help you 
 
 Take a look at some of the key areas of our platform:
 
+### System Diagram
+
+<img width="953" alt="system diagram" src="https://github.com/Nikhil-Kumar-02/ai_mock_interviewer/blob/master/Picture1.png">
+
 ### Landing Page
 <img width="953" alt="Landing Page" src="https://github.com/user-attachments/assets/34d207b8-26a6-4956-ac74-c0108dacee92">
 
